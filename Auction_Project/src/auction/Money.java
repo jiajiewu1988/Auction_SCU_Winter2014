@@ -40,6 +40,10 @@ public class Money {
 	 * @return the amount in Euro
 	 */
 	public double getAmountInEuro() {
-		return (double) 10.00 * amount / 7.00;
+		return (double) 0.7 * amount;
+	}
+	
+	public void setAmountInEuro(double amount) {
+		this.amount = 0.7 * amount;
 	}
 }

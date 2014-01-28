@@ -2,8 +2,8 @@ package auction;
 
 public interface ItemForAuction {
 	
-	public boolean makeABid(double bitAmount, String email);
-	public boolean makeABitInEuro(double bidAmountInEuro, String emal);
+	public boolean makeABid(double bidAmount, String email);
+	public boolean makeABitInEuro(double bidAmountInEuro, String email);
 	public void sell();
 	public void sell(double amount);
 	public void cancelSale();
