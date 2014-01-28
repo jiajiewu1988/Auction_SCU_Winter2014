@@ -1,5 +1,7 @@
 package auction;
 
+import auction.AuctionItem.AuctionBid;
+
 public interface ItemForAuction {
 	
 	public boolean makeABid(double bidAmount, String email);
@@ -13,4 +15,6 @@ public interface ItemForAuction {
 	public double getSoldPrice();
 	public void showSaleInfo();
 	public String getStatus();
+	public String getItemName();
+	public AuctionBid getCurrentBid();
 }

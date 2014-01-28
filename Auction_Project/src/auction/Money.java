@@ -12,6 +12,7 @@ public class Money {
 	
 	public Money(double amount) {
 		this.amount = amount;
+		currencyUnits = "Dollar";
 	}
 
 	public Money(String unit, double amount) {
@@ -43,7 +44,19 @@ public class Money {
 		return (double) 0.7 * amount;
 	}
 	
+	/**
+	 * Set the amount of money in euro
+	 * @param amount
+	 */
 	public void setAmountInEuro(double amount) {
 		this.amount = 0.7 * amount;
+	}
+	
+	/**
+	 * Print information of money object
+	 */
+	public void showMoney() {
+		System.out.println("Money amount is " + amount);
+		System.out.println("Currency Unit is " + currencyUnits);
 	}
 }

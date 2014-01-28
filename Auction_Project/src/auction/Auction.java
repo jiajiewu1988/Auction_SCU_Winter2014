@@ -57,10 +57,41 @@ public class Auction {
 		while (itr.hasNext()) {
 			ItemForAuction item = itr.next();
 			if (status.equalsIgnoreCase(item.getStatus())) {
-				
+				item.showSaleInfo();
 			}
 		}
 	}
 	
+	public void showAuctionItemStatus(String itemName) {
+		Iterator<ItemForAuction> itr = auctionList.iterator();
+		boolean found = false;
+		while (itr.hasNext()) {
+			ItemForAuction item = itr.next();
+			if (item.getItemName().equalsIgnoreCase(itemName)) {
+				System.out.println("Item name: " + itemName);
+				System.out.println("Bid Status: " + item.getStatus());
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			System.out.println("Item " + itemName + " does not exist in auctionList");
+		}
+	}
 	
+	public void showAuctionItemWithHighestBid() {
+		Iterator<ItemForAuction> itr = auctionList.iterator();
+		ItemForAuction highestBidItem = null;
+		while (itr.hasNext()) {
+			ItemForAuction item = itr.next();
+			if (highestBidItem == null) {
+				highestBidItem = item;
+			} else {
+				if (highestBidItem.getCurrentBid().getBidAmount().getAmount() < item.getCurrentBid().getBidAmount().getAmount()) {
+					highestBidItem = item;
+				}
+			}
+		}
+		highestBidItem.showSaleInfo();
+	}
 }

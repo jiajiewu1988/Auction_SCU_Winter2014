@@ -118,6 +118,21 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 	}
 
 	@Override
+	public String getStatus() {
+		return this.getStatus();
+	}
+	
+	@Override
+	public String getItemName() {
+		return this.getItemName();
+	}
+	
+	public AuctionBid getCurrentBid() {
+		return currentBid;
+	}
+	
+	
+	@Override
 	public void showSaleInfo() {
 		showItemStatus();
 		System.out.println("Buyer Info is " + buyerInfo);
