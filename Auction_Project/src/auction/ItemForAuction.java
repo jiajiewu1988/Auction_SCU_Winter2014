@@ -12,4 +12,5 @@ public interface ItemForAuction {
 	public void showItemStatus();
 	public double getSoldPrice();
 	public void showSaleInfo();
+	public String getStatus();
 }
