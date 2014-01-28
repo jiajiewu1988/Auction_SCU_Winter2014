@@ -66,13 +66,31 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 	}
 
 	@Override
-	public void sell(double amount) {
-		if (this.getStatus().equalsIgnoreCase("SOLD")) {
+	public void sell() {
+		if (getStatus().equalsIgnoreCase("SOLD")) {
 			System.out.println("The Item: " + this.getItemName() + "is not available");
 			System.out.println("Sold Price: " + this.getSoldPrice());
 		} else {
 			this.setStatus("SOLD");
-			this.soldPrice.setAmount(currentBid.getBidAmount().getAmount());
+			soldPrice = new Money(currentBid.getBidAmount().getAmount());
+			try {
+				buyerInfo = currentBid.getBidderEmail();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			this.setDateSold(new Date());
+			System.out.println("Item is sold at $" + currentBid.getBidAmount().getAmount());
+		}
+	}
+	
+	public void sell(double amount) {
+		if (getStatus().equalsIgnoreCase("SOLD")) {
+			System.out.println("The Item: " + this.getItemName() + " is not available");
+			System.out.println("Sold Price: " + this.getSoldPrice());
+			System.out.println("****************************************************");
+		} else {
+			this.setStatus("SOLD");
+			soldPrice = new Money(amount);
 			try {
 				buyerInfo = currentBid.getBidderEmail();
 			} catch (Exception e) {
@@ -85,10 +103,11 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 	
 	public void sell(double amount, String buyerEmail) {
 		if (this.getStatus().equalsIgnoreCase("SOLD")) {
-			System.out.println("The Item: " + this.getItemName() + "is not available");
+			System.out.println("The Item: " + this.getItemName() + " is not available");
+			System.out.println("****************************************************");
 		} else {
 			this.setStatus("SOLD");
-			this.soldPrice.setAmount(currentBid.getBidAmount().getAmount());
+			soldPrice = new Money(amount);
 			buyerInfo = buyerEmail;
 			this.setDateSold(new Date());
 		}
@@ -99,6 +118,8 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 		currentBid.clear();
 		soldPrice = null;
 		buyerInfo = null;
+		super.setStatus("AVAILABLE");
+		System.out.println("\nSale of - " + super.getItemName() + " is cancelled.\n");
 	}
 
 	@Override
@@ -113,18 +134,16 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 
 	@Override
 	public double getSoldPrice() {
-		// TODO Auto-generated method stub
 		return soldPrice.getAmount();
 	}
-
-	@Override
-	public String getStatus() {
-		return this.getStatus();
+	
+	public double getItemPrice() {
+		return this.getPrice();
 	}
 	
 	@Override
 	public String getItemName() {
-		return this.getItemName();
+		return super.getItemName();
 	}
 	
 	public AuctionBid getCurrentBid() {
@@ -134,14 +153,16 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 	
 	@Override
 	public void showSaleInfo() {
-		showItemStatus();
+		this.showItemStatus();
+		System.out.println("Sold Price is " + soldPrice.getAmount());
 		System.out.println("Buyer Info is " + buyerInfo);
-		
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 	
 	public void showItemStatus() {
 		super.showItemStatus();
 		currentBid.showBidStatus();
+		System.out.println("=======================================================");
 	}
 	
 	public String getBuyerInfo() {
@@ -163,8 +184,12 @@ public class AuctionItem extends SaleItem implements ItemForAuction {
 		}
 		
 		public void showBidStatus() {
-			System.out.println("bid amount is " + bidAmount);
-			System.out.println("minbid is " + MINBID);
+			if (bidAmount == null) 
+				System.out.println("bid amount is null");
+			else 
+				System.out.println("bid amount is " + bidAmount.getAmount());
+			
+			System.out.println("minbid is " + MINBID.getAmount());
 			System.out.println("bidderEmail is " + bidderEmail);
 			if (bidDate == null) {
 				System.out.println("No current bids");

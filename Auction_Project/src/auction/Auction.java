@@ -45,7 +45,10 @@ public class Auction {
 		Iterator<ItemForAuction> itr = auctionList.iterator();
 		while (itr.hasNext()) {
 			ItemForAuction item = itr.next();
-			item.showSaleInfo();
+			System.out.println("Item Name: " + item.getItemName());
+			System.out.println("Item Price: " + item.getItemPrice());
+			item.getCurrentBid().showBidStatus();
+			System.out.println();
 		}
 	}
 	
@@ -54,10 +57,14 @@ public class Auction {
 	 */
 	public void showAuctionItemsByStatus(String status) {
 		Iterator<ItemForAuction> itr = auctionList.iterator();
+		System.out.println(status + " items");
 		while (itr.hasNext()) {
 			ItemForAuction item = itr.next();
 			if (status.equalsIgnoreCase(item.getStatus())) {
-				item.showSaleInfo();
+				System.out.println("Item Name: " + item.getItemName());
+				System.out.println("Item Price: " + item.getItemPrice());
+				item.getCurrentBid().showBidStatus();
+				System.out.println();
 			}
 		}
 	}
@@ -87,8 +94,10 @@ public class Auction {
 			if (highestBidItem == null) {
 				highestBidItem = item;
 			} else {
-				if (highestBidItem.getCurrentBid().getBidAmount().getAmount() < item.getCurrentBid().getBidAmount().getAmount()) {
-					highestBidItem = item;
+				if (item.getCurrentBid().getBidAmount() != null) {
+					if (highestBidItem.getCurrentBid().getBidAmount().getAmount() < item.getCurrentBid().getBidAmount().getAmount()) {
+						highestBidItem = item;
+					}
 				}
 			}
 		}

@@ -17,4 +17,5 @@ public interface ItemForAuction {
 	public String getStatus();
 	public String getItemName();
 	public AuctionBid getCurrentBid();
+	public double getItemPrice();
 }
